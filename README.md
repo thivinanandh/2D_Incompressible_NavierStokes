@@ -1,10 +1,30 @@
 
-**Incompressible Navier-Stokes Solver(2D) using Projection Scheme**
+# Incompressible Navier-Stokes Solver(2D) using Projection Scheme
+---
+
+## Compilation 
+---
+
+run the make file using 
+
+```
+make
+```
+command and then run the executable 
+
+## Features
+---
+* Staggered Grid Solver for Stabilty
+* Eigen Value based matrix generation for faster computation
+* Pressure Projection scheme implementaton
+* Iterative Solvers (BiCGSTAB)
+* Output file format for tecplot visualisation
+
 
 This is a 2D Incompressible Navier Stokes Solver written using C++. Here the code is configured for the example "Lid Driven Cavity" and the results are compared with the Ghia. et. al results. 
 
 
-Governing Equations
+## Governing Equations
 ================
 
 
@@ -13,7 +33,7 @@ $$\textbf{u}_{\text{t}}  + (\textbf{u}\cdot\nabla) \textbf{u} + \nabla{P}  - \fr
 $$\nabla \cdot \textbf{u}  = 0$$
 
 
-Methodology - Projection Scheme
+## Methodology - Projection Scheme
 ===============================
 
 In this Project , we have used a method called \"Projection Method\"
@@ -42,7 +62,7 @@ The Corrector equation to solve this system can be obtained from
 equation (4)
 $$\textbf{u}^{\text{n+1}}   = \textbf{u}^{\text{*}} - \nabla{t} \;\nabla{P^{n+1}}$$
 
-Boundary Conditions
+### Boundary Conditions
 -------------------
 
 
@@ -59,10 +79,10 @@ at all the edges of the system. This is given since the velocities at
 the edges are zero, the pressure gradient which would be suitable at
 edges to provide zero velocity at those edges should be zero.
 
-Implementation
+## Implementation
 ==============
 
-Grid Structure
+### Grid Structure
 --------------
 
 To solve this problem , we will be using a fully staggered grid , in
@@ -76,7 +96,7 @@ staggered grid is given below
 
 \
 
-Boundary Condition Implementation in Staggered Grid
+### Boundary Condition Implementation in Staggered Grid
 ---------------------------------------------------
 
 The velocities are now calculated at staggered grid. This means at the
@@ -96,8 +116,8 @@ interpolation is made for that particular velocity) so that after
 interpolation they will produce zero at the actual grid points.
 
 $$\begin{aligned}
-u_{s [i,0]}  &= \;\;\;\;- u_{s [i,1]}  \;\;\;\; \forall\;\;\;\; i = 0,..,N \\
-u_{s [i,N+1]},u_{s [i,N]} &= \;\;\;\; V_{lid} \;\;\;\;\; \;\;\;\; \forall\;\;\;\; i = 0,..,N\end{aligned}$$
+u_{s [i,0]}  &= - u_{s [i,1]}  \forall i = 0,..,N \\
+u_{s [i,N+1]},u_{s [i,N]} &=  V_{lid}  \forall  i = 0,..,N\end{aligned}$$
 
 Similarly for v grid 
 
