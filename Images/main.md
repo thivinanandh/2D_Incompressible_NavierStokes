@@ -1,21 +1,53 @@
+**Computational Heat Transfer and Fluid Flow**
 
-**Incompressible Navier-Stokes Solver(2D) using Projection Scheme**
+\
+Jan - Apr - 2019\
 
-This is a 2D Incompressible Navier Stokes Solver written using C++. Here the code is configured for the example "Lid Driven Cavity" and the results are compared with the Ghia. et. al results. 
+**Lid Driven Cavity - Incompressible Navier Stoke's 2D**
 
+**\
+Project Report\
+**
 
-Governing Equations
+Name : Thivin Anandh D\
+Sr no : 15722\
+PhD, Dept of Computational and Data Sciences\
+
+Introduction
+============
+
+This project focuses on solving the classical problem \"Lid Driven
+Cavity\" , which is considered to be the benchmark problem for comparing
+the standard of the fluid solvers. In this project we will be trying to
+simulate the lid driven cavity flow using projection method while trying
+to implement stable methods to simulate this process accurately for
+higher Reynolds number as possible.
+
+Problem Scenario
 ================
 
+The common problem in solving the Navier Stokes equations for
+incompressible flow is that the pressure term in the Momentum equations
+( which is a unknown in our scenario ) has no relation with the
+continuity Equation in Incompressible form . This makes the computation
+of the incompressible fluid flow difficult.
 
 $$\textbf{u}_{\text{t}}  + (\textbf{u}\cdot\nabla) \textbf{u} + \nabla{P}  - \frac{1}{\text{Re}}( \nabla^{\text{2}} \textbf{u})    = \textbf{f}$$
 $$\nabla \cdot \textbf{u}  = 0$$
 
+Various methods has been proposed to solve this problem of *Pressure
+Velocity Coupling* like the SIMPLE Method ( Spadling, Brain ; Patnakar,
+Suhas) which uses relaxation factor for pressure while computing the
+pressure at n+1 step .And there is another method called Method of
+Artificial compressibility , which involves the addition of term called
+*Artificial Compressibility* and *Artificial Density* while solving for
+the pressure in the process. The Methodology used in this report is
+discussed in the section below.
 
 Methodology - Projection Scheme
 ===============================
 
-In this Project , we have used a method called \"Projection Method\"
+In this Project , we will be using a method called \"Projection Method\"
 , which involves a *predictor and corrector* approach to finding the
 velocity.At first , a predictor velocity $u^*$ is calculated by ignoring
 the pressure gradient term in the Navier stokes equation . The corrector
@@ -24,36 +56,30 @@ correction term in such a way that $u^{n+1}$ would have solved the
 continuity equation .
 
 $$\textbf{u}^{\text{*}}   = \textbf{u}^{\text{n}} - \Delta{t}(\textbf{u}\cdot\nabla \textbf{u})^{\text{n}} + \frac{\Delta{t}}{\text{Re}}( \nabla^{\text{2}} \cdot \textbf{u}^{\text{*}})$$
-
-$$\textbf{u}^{\text{n+1}}   = \textbf{u}^{\text{*}} - \Delta{t} \;\nabla{P^{n+1}}$$
-
-
+$$\textbf{u}^{\text{n+1}}   = \textbf{u}^{\text{*}} - \Delta{t} \;\nabla{P^{n+1}}$$\
 This is achieved by taking the divergence of the equation(4) which would
 result in a continuity term and a Laplacian of pressure term. This
 equation is commonly referred as the *Pressure Poisson* equation
-
 $$\nabla\cdot {\textbf{u}^{\text{n+1}}}   = \nabla\cdot {\textbf{u}^{\text{*}}} - \Delta{t} \;\nabla^{2}P$$
-
 Eliminate RHS since , $\nabla\cdot {\textbf{u}^{\text{n+1}}}  = 0$ as
 per continuity, then the equation becomes
 $$\;\nabla^{2}P   = \frac{1}{\Delta{t}}\nabla\cdot {\textbf{u}^{\text{*}}}$$
 The Corrector equation to solve this system can be obtained from
 equation (4)
-$$\textbf{u}^{\text{n+1}}   = \textbf{u}^{\text{*}} - \nabla{t} \;\nabla{P^{n+1}}$$
+$$\textbf{u}^{\text{n+1}}   = \textbf{u}^{\text{*}} - \nabla{t} \;\nabla{P^{n+1}}$$\
 
 Boundary Conditions
 -------------------
 
-
+Boundary Conditions uniquely differentiate different kinds of problems.
 For lid driven cavity we will be using the following boundary
 Conditions\
 **Dirichlet type Boundary** for velocities at all the edges of the
 system where the u on the top part will be the velocity of the lid and
 all the other velocities are considered as zero\
-
-$V_{lid}= 1.0 \;\;m/s$
-
-**Zero Neumann Boundary** is provided for pressure
+$$\begin{aligned}
+      V_{lid}= 1.0 \;\;m/s
+      \end{aligned}$$ **Zero Neumann Boundary** is provided for pressure
 at all the edges of the system. This is given since the velocities at
 the edges are zero, the pressure gradient which would be suitable at
 edges to provide zero velocity at those edges should be zero.
@@ -66,12 +92,14 @@ Grid Structure
 
 To solve this problem , we will be using a fully staggered grid , in
 which the velocity and the pressure points will be staggered away from
-the actual grid points which will make the computations more stable.The figure (1) \[He, Ping. (2016)\] of
+the actual grid points which will make the computations more stable .
+Further this will provide a good visualization while trying look at the
+from Physics of the flow.The figure (1) \[He, Ping. (2016)\] of
 staggered grid is given below
 
-![ Control Volume for $u$](Images/Stag.png)
+![ Control Volume for $u$](Stag.png)
 
-![ Control Volume for $u$](Images/Ugrid.jpg)
+![ Control Volume for $u$](Ugrid.jpg)
 
 \
 
@@ -83,9 +111,9 @@ end of each computation the velocity and pressures at each grid point
 will be computed by the interpolation of those quantities around the
 actual grid points. So in similar way the boundary conditions are also
 implemented in such a way that after the interpolation , the actual grid
-points will have the desired Boundary conditions.
+points will have the desired Boundary conditions.\
 
-###  Velocity  
+###  Velocity  {#velocity .unnumbered}
 
 The u velocity has to be 1 at the top and 0 on all the other edges of
 the system. Since only the interior grid points will be calculated in
@@ -96,16 +124,12 @@ interpolation they will produce zero at the actual grid points.
 
 $$\begin{aligned}
 u_{s [i,0]}  &= \;\;\;\;- u_{s [i,1]}  \;\;\;\; \forall\;\;\;\; i = 0,..,N \\
-u_{s [i,N+1]},u_{s [i,N]} &= \;\;\;\; V_{lid} \;\;\;\;\; \;\;\;\; \forall\;\;\;\; i = 0,..,N\end{aligned}$$
-
-Similarly for v grid 
-
-$$\begin{aligned}
+u_{s [i,N+1]},u_{s [i,N]} &= \;\;\;\; V_{lid} \;\;\;\;\; \;\;\;\; \forall\;\;\;\; i = 0,..,N\end{aligned}$$\
+Similarly for v grid $$\begin{aligned}
 v_{s [1,j]} \;\;\;\; &= \;\;\;\;- v_{s [0,j]}  \;\;\;\; \forall\;\;\;\; j = 0,..,N \\
 v_{s [N+1,j]}\;\;\;\; &=\;\;\;\;  -v_{s [N,j]}  \;\;\;\; \forall\;\;\;\; j = 0,..,N\end{aligned}$$
 
-
-### Pressure
+### Pressure {#pressure .unnumbered}
 
 The Pressure at staggered grids have to be chosen in such a way that
 pressure difference at the edges have to be zero. This compliments the
@@ -173,6 +197,13 @@ $$\begin{aligned}
 \nabla ^2 P  &= \left( \frac{ p_{s [i+1,j]} + p_{s [i-1,j]} - 2p_{s [i,j]}} { h_x ^2} + \frac{ p_{s [i,j+1]} + p_{s [i,j-1]} - 2p_{s [i,j]}} { h_y ^2} \right) \\.
 \nabla P  &= \left( \frac{ p_{s [i+1,j]} - p_{s [i,j]} } { h_x } + \frac{ p_{s [i,j+1]} - p_{s [i,j]}} { h_y} \right) \end{aligned}$$
 
+ Computational Device Specification
+----------------------------------
+
+All the computations mentioned below are done using the computer with an
+Intel i7 processor with base clock sped of 2.40 GHz and 8 GB of RAM .
+The Bench marking is done only for the correctness of the value and not
+for the Computational time taken.
 
 Solving Methodologies
 =====================
@@ -184,8 +215,7 @@ For this method , we arrange the equation in the way mentioned below and
 we solve them as a **Helmholtz equation** . We can find the solution by
 the direct method which involved finding the Eigen values and Eigen
 vectors as a functions of sine and cosine functions for a second order
-central difference matrix . 
-$$\begin{aligned}
+central difference matrix . $$\begin{aligned}
     \left[ \nabla ^2 - \frac{\text{Re}}{\Delta{t}}h^2   \right] &= h^2\left[ \text{Re}\left( \frac{\partial u^2}{\partial x} + \frac{\partial uv}{\partial y} \right) - \frac{\text{Re}}{\Delta{t}}u^n   \right]\end{aligned}$$
 *Note : While solving the boundary term has to be included in the RHS of
 the above equation*
@@ -195,9 +225,7 @@ the above equation*
 
 Solving the pressure Poisson equation to find the pressure unknowns is
 the Bottle neck in this Computation. The equation states
-
 $$\nabla^{2}P^{n+1}   = \frac{1}{\Delta{t}}\nabla\cdot {\textbf{u}^{\text{*}}}$$
-
 
 This can be solved as a Helmholtz function , if the Pressure values at
 the boundary are already given. however in this problem we are
@@ -248,7 +276,12 @@ that
     increase , Since we have to more iterations to reach to steady state
     solution.
 
-
+*For this method to reach a convergence criteria of $1e^{-8}$ for
+Reynolds number 1000 on a 128 \* 128 grid , it took around 5 to 6 hrs of
+computing time*\
+*\*Note : The actual computational trade off between using direct method
+by imposing a non zero Poisson at edges and using Iterative solvers with
+zero pressure gradient has not been studied in this report*
 
 Results
 =======
@@ -269,13 +302,13 @@ Time Step : 0.00005 sec\
 Exit Tolerance : $10^{-8}$\
 Time to solve - 300 minutes
 
-![image](Images/Re_100_1.png)
+![image](Re_100_1.png)
 
-![image](Images/Re_100_2.png)
+![image](Re_100_2.png)
 
-![Evolution of $u$ velocity for Re 100](Images/Re_100_3.PNG)
+![Evolution of $u$ velocity for Re 100](Re_100_3.PNG)
 
-![Evolution of $u$ velocity for Re 100](Images/Re_100_4.png)
+![Evolution of $u$ velocity for Re 100](Re_100_4.png)
 
 ###  Time evolution plots for Re = 1000 
 
@@ -283,13 +316,13 @@ Time Step : 0.00005 sec\
 Exit Tolerance : $10^-{8}$\
 Time to solve - 400 minutes
 
-![image](Images/RE_1000_1.PNG)
+![image](RE_1000_1.PNG)
 
-![image](Images/RE_1000_2.PNG)
+![image](RE_1000_2.PNG)
 
-![Evolution of $u$ velocity for Re 1000 ](Images/RE_1000_3.PNG)
+![Evolution of $u$ velocity for Re 1000 ](RE_1000_3.PNG)
 
-![Evolution of $u$ velocity for Re 1000 ](Images/RE_1000_LAST.PNG)
+![Evolution of $u$ velocity for Re 1000 ](RE_1000_LAST.PNG)
 
 ###  Time evolution plots for Re = 2000 
 
@@ -297,13 +330,13 @@ Time Step : 0.00005 sec\
 Exit Tolerance : $10^-{8}$\
 Time to solve - 440 minutes
 
-![image](Images/RE_2000_1.PNG)
+![image](RE_2000_1.PNG)
 
-![image](Images/RE_2000_2.PNG)
+![image](RE_2000_2.PNG)
 
-![Evolution of $u$ velocity for Re 2000 ](Images/RE_2000_3.PNG)
+![Evolution of $u$ velocity for Re 2000 ](RE_2000_3.PNG)
 
-![Evolution of $u$ velocity for Re 2000 ](Images/RE_2000_4.PNG)
+![Evolution of $u$ velocity for Re 2000 ](RE_2000_4.PNG)
 
 ###  Time evolution plots for Re = 5000 
 
@@ -311,13 +344,13 @@ Time Step : 0.00001 sec\
 Exit Tolerance : $10^-{8}$\
 Time to solve - 610 minutes
 
-![image](Images/RE_5000_1.PNG)
+![image](RE_5000_1.PNG)
 
-![image](Images/RE_5000_2.PNG)
+![image](RE_5000_2.PNG)
 
-![Evolution of $u$ velocity for Re 5000 ](Images/RE_5000_3.PNG)
+![Evolution of $u$ velocity for Re 5000 ](RE_5000_3.PNG)
 
-![Evolution of $u$ velocity for Re 5000 ](Images/RE_5000_4.PNG)
+![Evolution of $u$ velocity for Re 5000 ](RE_5000_4.PNG)
 
 Observation
 -----------
@@ -329,14 +362,28 @@ vortices which could only be observed during a high Reynolds number flow
 Comparison of Computed Solution vs Benchmark Solution
 -----------------------------------------------------
 
-![ Benchmark Comparison for Re 400 ](Images/RE-100.PNG)
+![ Benchmark Comparison for Re 400 ](RE-100.PNG)
 
-![ Benchmark Comparison for Re 400 ](Images/RE-400.PNG)
+![ Benchmark Comparison for Re 400 ](RE-400.PNG)
 
-![ Benchmark Comparison for Re 2000 ](Images/RE-1000.PNG)
+![ Benchmark Comparison for Re 2000 ](RE-1000.PNG)
 
-![ Benchmark Comparison for Re 2000 ](Images/RE-2000.PNG)
+![ Benchmark Comparison for Re 2000 ](RE-2000.PNG)
 
-![ Benchmark Comparison for Re 5000 ](Images/RE-3200.PNG)
+![ Benchmark Comparison for Re 5000 ](RE-3200.PNG)
 
-![ Benchmark Comparison for Re 5000 ](Images/RE-5000.PNG)
+![ Benchmark Comparison for Re 5000 ](RE-5000.PNG)
+
+Inference
+=========
+
+It is been observed that this method produces accurate results up to
+Reynolds number of 5000 . When computed for Reynolds number of 7500 ,
+the numerical results did not blow up however only it was not able to
+capture the intricate velocity profiles that occurs for a higher
+Reynolds number.\
+The order of convergence of this method can be improved by using methods
+like ( Adam Bashforth Crank Nicholson) method for solving the predictor
+part of the velocity or by using better time stepping schemes for
+solving the pressure Poisson equation or to use Iterative solvers with
+Multi Grid approach.
