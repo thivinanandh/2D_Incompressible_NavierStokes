@@ -9,6 +9,7 @@ Governing Equations
 
 
 $$\textbf{u}_{\text{t}}  + (\textbf{u}\cdot\nabla) \textbf{u} + \nabla{P}  - \frac{1}{\text{Re}}( \nabla^{\text{2}} \textbf{u})    = \textbf{f}$$
+
 $$\nabla \cdot \textbf{u}  = 0$$
 
 
