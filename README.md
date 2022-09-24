@@ -208,9 +208,12 @@ For this method , we arrange the equation in the way mentioned below and
 we solve them as a **Helmholtz equation** . We can find the solution by
 the direct method which involved finding the Eigen values and Eigen
 vectors as a functions of sine and cosine functions for a second order
-central difference matrix . 
+central difference matrix.
+
 $$\begin{aligned}
-    \left[ \nabla ^2 - \frac{\text{Re}}{\Delta{t}}h^2   \right] &= h^2\left[ \text{Re}\left( \frac{\partial u^2}{\partial x} + \frac{\partial uv}{\partial y} \right) - \frac{\text{Re}}{\Delta{t}}u^n   \right]\end{aligned}$$
+    \left[ \nabla ^2 - \frac{\text{Re}}{\Delta{t}}h^2   \right] &= h^2\left[ \text{Re}\left( \frac{\partial u^2}{\partial x} + \frac{\partial uv}{\partial y} \right) - \frac{\text{Re}}{\Delta{t}}u^n   \right]
+\end{aligned}$$
+
 *Note : While solving the boundary term has to be included in the RHS of
 the above equation*
 
