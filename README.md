@@ -55,11 +55,11 @@ equation is commonly referred as the *Pressure Poisson* equation
 
 $\nabla\cdot {\textbf{u}^{\text{n+1}}}   = \nabla\cdot {\textbf{u}^{\text{*}}} - \Delta{t} \;\nabla^{2}P$
 
-Eliminate RHS since , $\nabla\cdot {\textbf{u}^{\text{n+1}}}  = 0$ as
-per continuity, then the equation becomes
-$\;\nabla^{2}P   = \frac{1}{\Delta{t}}\nabla\cdot {\textbf{u}^{\text{*}}}$
+Eliminate RHS since , 
+$\nabla\cdot {\textbf{u}^{\text{n+1}}}  = 0$
+asper continuity, then the equation becomes $\;\nabla^{2}P   = \frac{1}{\Delta{t}}\nabla\cdot {\textbf{u}^{\text{*}}}$. 
 The Corrector equation to solve this system can be obtained from
-equation (4)
+
 $\textbf{u}^{\text{n+1}}   = \textbf{u}^{\text{*}} - \nabla{t} \;\nabla{P^{n+1}}$
 
 ### Boundary Conditions
@@ -178,10 +178,12 @@ component of velocity ($v$) inside the control volume.
 We have used **first order up-winding scheme** for calculating the
 divergence of velocity while solving for pressure poisson equation (7).
 The discretized form of relation for staggered grid is as given below
+
 $$\begin{aligned}
      \nabla\cdot u^*  &= \left( \frac{ u_{s [i,j]} - u_{s [i-1,j]}} { h_x} + \frac{ v_{s [i,j]} - v_{s [i,j-1]}} { h_y} \right) \\.
  \end{aligned}$$
-
+ 
+ 
 ### Discretizing Pressure Terms
 
 The pressure term in $\nabla^2{P}$ is formulated using the normal
@@ -192,7 +194,8 @@ scheme**.
 
 $$\begin{aligned}
 \nabla ^2 P  &= \left( \frac{ p_{s [i+1,j]} + p_{s [i-1,j]} - 2p_{s [i,j]}} { h_x ^2} + \frac{ p_{s [i,j+1]} + p_{s [i,j-1]} - 2p_{s [i,j]}} { h_y ^2} \right) \\.
-\nabla P  &= \left( \frac{ p_{s [i+1,j]} - p_{s [i,j]} } { h_x } + \frac{ p_{s [i,j+1]} - p_{s [i,j]}} { h_y} \right) \end{aligned}$$
+\nabla P  &= \left( \frac{ p_{s [i+1,j]} - p_{s [i,j]} } { h_x } + \frac{ p_{s [i,j+1]} - p_{s [i,j]}} { h_y} \right) 
+\end{aligned}$$
 
 
 Solving Methodologies
