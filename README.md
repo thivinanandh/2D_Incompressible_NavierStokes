@@ -53,14 +53,14 @@ This is achieved by taking the divergence of the equation(4) which would
 result in a continuity term and a Laplacian of pressure term. This
 equation is commonly referred as the *Pressure Poisson* equation
 
-$$\nabla\cdot {\textbf{u}^{\text{n+1}}}   = \nabla\cdot {\textbf{u}^{\text{*}}} - \Delta{t} \;\nabla^{2}P$$
+$\nabla\cdot {\textbf{u}^{\text{n+1}}}   = \nabla\cdot {\textbf{u}^{\text{*}}} - \Delta{t} \;\nabla^{2}P$
 
 Eliminate RHS since , $\nabla\cdot {\textbf{u}^{\text{n+1}}}  = 0$ as
 per continuity, then the equation becomes
-$$\;\nabla^{2}P   = \frac{1}{\Delta{t}}\nabla\cdot {\textbf{u}^{\text{*}}}$$
+$\;\nabla^{2}P   = \frac{1}{\Delta{t}}\nabla\cdot {\textbf{u}^{\text{*}}}$
 The Corrector equation to solve this system can be obtained from
 equation (4)
-$$\textbf{u}^{\text{n+1}}   = \textbf{u}^{\text{*}} - \nabla{t} \;\nabla{P^{n+1}}$$
+$\textbf{u}^{\text{n+1}}   = \textbf{u}^{\text{*}} - \nabla{t} \;\nabla{P^{n+1}}$
 
 ### Boundary Conditions
 -------------------
@@ -90,9 +90,9 @@ which the velocity and the pressure points will be staggered away from
 the actual grid points which will make the computations more stable.The figure (1) \[He, Ping. (2016)\] of
 staggered grid is given below
 
-![ Control Volume for $u$](Images/Stag.png)
+![ Control Volume for u](Images/Stag.png)
 
-![ Control Volume for $u$](Images/Ugrid.jpg)
+![ Control Volume for u](Images/Ugrid.jpg)
 
 \
 
@@ -308,9 +308,9 @@ Time to solve - 400 minutes
 
 ![image](Images/RE_1000_2.PNG)
 
-![Evolution of $u$ velocity for Re 1000 ](Images/RE_1000_3.PNG)
+![Evolution of u velocity for Re 1000 ](Images/RE_1000_3.PNG)
 
-![Evolution of $u$ velocity for Re 1000 ](Images/RE_1000_LAST.PNG)
+![Evolution of u velocity for Re 1000 ](Images/RE_1000_LAST.PNG)
 
 ###  Time evolution plots for Re = 2000 
 
@@ -322,9 +322,9 @@ Time to solve - 440 minutes
 
 ![image](Images/RE_2000_2.PNG)
 
-![Evolution of $u$ velocity for Re 2000 ](Images/RE_2000_3.PNG)
+![Evolution of u velocity for Re 2000 ](Images/RE_2000_3.PNG)
 
-![Evolution of $u$ velocity for Re 2000 ](Images/RE_2000_4.PNG)
+![Evolution of u velocity for Re 2000 ](Images/RE_2000_4.PNG)
 
 ###  Time evolution plots for Re = 5000 
 
@@ -336,9 +336,9 @@ Time to solve - 610 minutes
 
 ![image](Images/RE_5000_2.PNG)
 
-![Evolution of $u$ velocity for Re 5000 ](Images/RE_5000_3.PNG)
+![Evolution of u velocity for Re 5000 ](Images/RE_5000_3.PNG)
 
-![Evolution of $u$ velocity for Re 5000 ](Images/RE_5000_4.PNG)
+![Evolution of u velocity for Re 5000 ](Images/RE_5000_4.PNG)
 
 Observation
 -----------
